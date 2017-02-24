@@ -1,3 +1,4 @@
+'use strict';
 // 1. Generate three random, non-dupe images (part of the controller)
 // 2. Object constructor for Products:
 // a. Include name, path, votes
@@ -21,29 +22,63 @@ console.log(productsArray);
 
 // a simple IIFE to build all the product images
 (function() {
-  var num0 = Math.floor(Math.random() * productsArray.length);
+  var num0 = Math.round(Math.random() * productsArray.length);
   console.log(num0);
-  var getDivZero = document.getElementById('zero')
+  var getDivZero = document.getElementById('zero');
   var img0 = document.createElement('img');
   img0.src = productsArray[num0].path;
   console.log(productsArray[num0].path);
   zero.appendChild(img0);
 
-  var num1 = Math.floor(Math.random() * productsArray.length);
+  var num1 = Math.round(Math.random() * productsArray.length);
   console.log(num1);
-  var getDivOne = document.getElementById('one')
+  var getDivOne = document.getElementById('one');
   var img1 = document.createElement('img');
   img1.src = productsArray[num1].path;
   console.log(productsArray[num1].path);
   zero.appendChild(img1);
 
-  var num2 = Math.floor(Math.random() * productsArray.length);
+  var num2 = Math.round(Math.random() * productsArray.length);
   console.log(num2);
-  var getDivOne = document.getElementById('two')
+  var getDivOne = document.getElementById('two');
   var img2 = document.createElement('img');
   img2.src = productsArray[num2].path;
   console.log(productsArray[num2].path);
   zero.appendChild(img2);
+
+  if (num0 === num1 || num0 === num2 || num1 === num2) {
+    var images = document.getElementsByTagName('img');
+    var l = images.length;
+    for (var i = 0; i < l; i++) {
+      images[0].parentNode.removeChild(images[0]);
+    }
+
+    var num0 = Math.round(Math.random() * productsArray.length);
+    console.log(num0);
+    var getDivZero = document.getElementById('zero');
+    var img0 = document.createElement('img');
+    img0.src = productsArray[num0].path;
+    console.log(productsArray[num0].path);
+    zero.appendChild(img0);
+
+
+    var num1 = Math.round(Math.random() * productsArray.length);
+    console.log(num1);
+    var getDivOne = document.getElementById('one');
+    var img1 = document.createElement('img');
+    img1.src = productsArray[num1].path;
+    console.log(productsArray[num1].path);
+    zero.appendChild(img1);
+
+
+    var num2 = Math.round(Math.random() * productsArray.length);
+    console.log(num2);
+    var getDivOne = document.getElementById('two');
+    var img2 = document.createElement('img');
+    img2.src = productsArray[num2].path;
+    console.log(productsArray[num2].path);
+    zero.appendChild(img2);
+  }
 
 })()
 
