@@ -22,38 +22,15 @@ console.log(productsArray);
 
 // a simple IIFE to build all the product images
 (function() {
-  var num0 = Math.round(Math.random() * productsArray.length);
-  console.log(num0);
-  var getDivZero = document.getElementById('zero');
-  var img0 = document.createElement('img');
-  img0.src = productsArray[num0].path;
-  console.log(productsArray[num0].path);
-  zero.appendChild(img0);
+  do {
 
-  var num1 = Math.round(Math.random() * productsArray.length);
-  console.log(num1);
-  var getDivOne = document.getElementById('one');
-  var img1 = document.createElement('img');
-  img1.src = productsArray[num1].path;
-  console.log(productsArray[num1].path);
-  zero.appendChild(img1);
-
-  var num2 = Math.round(Math.random() * productsArray.length);
-  console.log(num2);
-  var getDivOne = document.getElementById('two');
-  var img2 = document.createElement('img');
-  img2.src = productsArray[num2].path;
-  console.log(productsArray[num2].path);
-  zero.appendChild(img2);
-
-  if (num0 === num1 || num0 === num2 || num1 === num2) {
     var images = document.getElementsByTagName('img');
-    var l = images.length;
-    for (var i = 0; i < l; i++) {
+    while(images.length > 0) {
       images[0].parentNode.removeChild(images[0]);
     }
 
-    var num0 = Math.round(Math.random() * productsArray.length);
+
+    var num0 = Math.round(Math.random() * (productsArray.length - 1));
     console.log(num0);
     var getDivZero = document.getElementById('zero');
     var img0 = document.createElement('img');
@@ -61,8 +38,7 @@ console.log(productsArray);
     console.log(productsArray[num0].path);
     zero.appendChild(img0);
 
-
-    var num1 = Math.round(Math.random() * productsArray.length);
+    var num1 = Math.round(Math.random() * (productsArray.length - 1));
     console.log(num1);
     var getDivOne = document.getElementById('one');
     var img1 = document.createElement('img');
@@ -70,15 +46,17 @@ console.log(productsArray);
     console.log(productsArray[num1].path);
     zero.appendChild(img1);
 
-
-    var num2 = Math.round(Math.random() * productsArray.length);
+    var num2 = Math.round(Math.random() * (productsArray.length - 1));
     console.log(num2);
     var getDivOne = document.getElementById('two');
     var img2 = document.createElement('img');
     img2.src = productsArray[num2].path;
     console.log(productsArray[num2].path);
     zero.appendChild(img2);
-  }
+
+  } while (num0 === num1 || num0 === num2 || num1 === num2)
+
+
 
 })()
 
