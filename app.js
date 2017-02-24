@@ -7,6 +7,7 @@
 
 var productImageNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'tauntaun', 'unicorn', 'water-can', 'wine-glass'];
 var productsArray = [];
+var counter = 0;
 
 function Product(name, path) {
   this.name = name;
@@ -54,6 +55,10 @@ console.log(productsArray);
     console.log(productsArray[num2].path);
     zero.appendChild(img2);
 
+    document.getElementsByTagName("img")[0].setAttribute("id", "IMGR");
+    document.getElementsByTagName("img")[1].setAttribute("id", "IMGR");
+    document.getElementsByTagName("img")[2].setAttribute("id", "IMGR");
+
   } while (num0 === num1 || num0 === num2 || num1 === num2)
 
 
@@ -64,6 +69,9 @@ var tracker = {
   // lots of properties and methods
 }
 
-someEl.addEventListener('click', function(e) {
-  // does some stuff on click
-})
+document.getElementById("IMGR").addEventListener("click", myFunction);
+
+function myFunction(){
+  counter++;
+  this.votes++;
+}
