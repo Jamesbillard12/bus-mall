@@ -15,9 +15,7 @@ function Product(name, path) {
   this.votes = 0;
   productsArray.push(this);
 }
-
-
-// a simple IIFE to build all the product images
+// a simple IIFE to build all the product objects
 (function() {
   for (var i = 0; i < productImageNames.length; i++) {
     var newInstances = new Product(productImageNames[i], 'img/' + productImageNames[i]+'.jpg')
@@ -25,8 +23,36 @@ function Product(name, path) {
   console.log(productsArray);
 })()
 
+
 var tracker = {
-  // lots of properties and l...
+
+  randNumberGenerator: function(){
+    return Math.round(Math.random() * (productsArray.length - 1));
+  },
+
+  chooseThreeRandomPics: function(){
+    var randomNums = [];
+
+    while (randomNums.length < 3) {
+      var possible = tracker.randNumberGenerator();
+      if (randomNums.indexOf(possible)=== -1) {
+        randomNums.push(possible);
+      }
+    }
+    return randomNums;
+  }
+  renderImgsToDom: function(){
+    var threePics = tracker.chooseThreeRandomPics();
+    var getDivZero = document.getElementById('zero');
+    var img = document.createElement('img');
+    img.src = productsArray[randomNums].path;
+    img.id = productsArray[randomNums].name;
+    zero.appendChild(img);
+    console.log(zero);
+  }
+
+
+}
 
 //   do {
 //
@@ -38,11 +64,7 @@ var tracker = {
 //
 //     var num0 = Math.round(Math.random() * (productsArray.length - 1));
 //     console.log(num0);
-//     var getDivZero = document.getElementById('zero');
-//     var img0 = document.createElement('img');
-//     img0.src = productsArray[num0].path;
-//     console.log(productsArray[num0].path);
-//     zero.appendChild(img0);
+
 //
 //
 //     document.getElementsByTagName('img')[0].setAttribute('id', 'IMGR0');
@@ -50,18 +72,18 @@ var tracker = {
 //     document.getElementsByTagName('img')[2].setAttribute('id', 'productsArray[i].name');
 //
 //   } while (num0 === num1 || num0 === num2 || num1 === num2)
-}
+// }
 
 
 
 
 
 
-document.getElementById('zero').addEventListener('click', myFunction);
-
-function myFunction(){
-  counter++;
-  Product.votes++;
-  console.log(counter);
-
-}
+// document.getElementById('zero').addEventListener('click', myFunction);
+//
+// function myFunction(){
+//   counter++;
+//   Product.votes++;
+//   console.log(counter);
+//
+// }
