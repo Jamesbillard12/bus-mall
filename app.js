@@ -55,9 +55,16 @@ console.log(productsArray);
     console.log(productsArray[num2].path);
     zero.appendChild(img2);
 
-    document.getElementsByTagName("img")[0].setAttribute("id", "IMGR");
-    document.getElementsByTagName("img")[1].setAttribute("id", "IMGR");
-    document.getElementsByTagName("img")[2].setAttribute("id", "IMGR");
+    document.getElementsByTagName('img')[0].setAttribute('id', 'IMGR0');
+    document.getElementsByTagName('img')[1].setAttribute('id', 'IMGR1');
+    document.getElementsByTagName('img')[2].setAttribute('id', 'IMGR2');
+
+    var p = document.getElementById('IMGR0');
+    p.onclick = showAlert;
+    var d = document.getElementById('IMGR1');
+    d.onclick = showAlert;
+    var f = document.getElementById('IMGR2');
+    f.onclick = showAlert;
 
   } while (num0 === num1 || num0 === num2 || num1 === num2)
 
@@ -69,9 +76,21 @@ var tracker = {
   // lots of properties and methods
 }
 
-document.getElementById("IMGR").addEventListener("click", myFunction);
 
-function myFunction(){
+
+function showAlert(event) {
   counter++;
   this.votes++;
+  console.log(counter);
 }
+
+//
+// document.getElementById('IMGR0', 'IMGR1', 'IMGR2').addEventListener('click', myFunction);
+//
+// function myFunction(){
+//   counter++;
+//   Product.votes++;
+//   alert('hello joe!');
+//   console.log(productsArray);
+//
+// }
