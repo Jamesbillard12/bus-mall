@@ -16,81 +16,52 @@ function Product(name, path) {
   productsArray.push(this);
 }
 
-for (var i = 0; i < productImageNames.length; i++) {
-  var newInstances = new Product(productImageNames[i], 'img/' + productImageNames[i]+'.jpg')
-};
-console.log(productsArray);
 
 // a simple IIFE to build all the product images
 (function() {
-  do {
-
-    var images = document.getElementsByTagName('img');
-    while(images.length > 0) {
-      images[0].parentNode.removeChild(images[0]);
-    }
-
-
-    var num0 = Math.round(Math.random() * (productsArray.length - 1));
-    console.log(num0);
-    var getDivZero = document.getElementById('zero');
-    var img0 = document.createElement('img');
-    img0.src = productsArray[num0].path;
-    console.log(productsArray[num0].path);
-    zero.appendChild(img0);
-
-    var num1 = Math.round(Math.random() * (productsArray.length - 1));
-    console.log(num1);
-    var getDivOne = document.getElementById('one');
-    var img1 = document.createElement('img');
-    img1.src = productsArray[num1].path;
-    console.log(productsArray[num1].path);
-    zero.appendChild(img1);
-
-    var num2 = Math.round(Math.random() * (productsArray.length - 1));
-    console.log(num2);
-    var getDivOne = document.getElementById('two');
-    var img2 = document.createElement('img');
-    img2.src = productsArray[num2].path;
-    console.log(productsArray[num2].path);
-    zero.appendChild(img2);
-
-    document.getElementsByTagName('img')[0].setAttribute('id', 'IMGR0');
-    document.getElementsByTagName('img')[1].setAttribute('id', 'IMGR1');
-    document.getElementsByTagName('img')[2].setAttribute('id', 'IMGR2');
-
-    var p = document.getElementById('IMGR0');
-    p.onclick = showAlert;
-    var d = document.getElementById('IMGR1');
-    d.onclick = showAlert;
-    var f = document.getElementById('IMGR2');
-    f.onclick = showAlert;
-
-  } while (num0 === num1 || num0 === num2 || num1 === num2)
-
-
-
+  for (var i = 0; i < productImageNames.length; i++) {
+    var newInstances = new Product(productImageNames[i], 'img/' + productImageNames[i]+'.jpg')
+  };
+  console.log(productsArray);
 })()
 
 var tracker = {
-  // lots of properties and methods
+  // lots of properties and l...
+
+//   do {
+//
+//     var images = document.getElementsByTagName('img');
+//     while(images.length > 0) {
+//       images[0].parentNode.removeChild(images[0]);
+//     }
+//
+//
+//     var num0 = Math.round(Math.random() * (productsArray.length - 1));
+//     console.log(num0);
+//     var getDivZero = document.getElementById('zero');
+//     var img0 = document.createElement('img');
+//     img0.src = productsArray[num0].path;
+//     console.log(productsArray[num0].path);
+//     zero.appendChild(img0);
+//
+//
+//     document.getElementsByTagName('img')[0].setAttribute('id', 'IMGR0');
+//     document.getElementsByTagName('img')[1].setAttribute('id', 'IMGR1');
+//     document.getElementsByTagName('img')[2].setAttribute('id', 'productsArray[i].name');
+//
+//   } while (num0 === num1 || num0 === num2 || num1 === num2)
 }
 
 
 
-function showAlert(event) {
+
+
+
+document.getElementById('zero').addEventListener('click', myFunction);
+
+function myFunction(){
   counter++;
-  this.votes++;
+  Product.votes++;
   console.log(counter);
-}
 
-//
-// document.getElementById('IMGR0', 'IMGR1', 'IMGR2').addEventListener('click', myFunction);
-//
-// function myFunction(){
-//   counter++;
-//   Product.votes++;
-//   alert('hello joe!');
-//   console.log(productsArray);
-//
-// }
+}
