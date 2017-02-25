@@ -35,55 +35,61 @@ var tracker = {
 
     while (randomNums.length < 3) {
       var possible = tracker.randNumberGenerator();
-      if (randomNums.indexOf(possible)=== -1) {
+      if (randomNums.indexOf(possible) === -1) {
         randomNums.push(possible);
       }
     }
     return randomNums;
-  }
+  },
+
   renderImgsToDom: function(){
-    var threePics = tracker.chooseThreeRandomPics();
-    var getDivZero = document.getElementById('zero');
-    var img = document.createElement('img');
-    img.src = productsArray[randomNums].path;
-    img.id = productsArray[randomNums].name;
-    zero.appendChild(img);
-    console.log(zero);
-  }
+    console.log('tracker.renderImgsToDom');
+    var threeRandomIndices = tracker.chooseThreeRandomPics();
+    var pictureHolder = document.getElementById('pictureHolder');
+    for (var i = 0; i < threeRandomIndices.length; i++) {
+
+      var img = document.createElement('img');
+      img.src = productsArray[threeRandomIndices[i]].path;
+      img.id = productsArray[threeRandomIndices[i]].name;
+      pictureHolder.appendChild(img);
+    }
+  },
+
+  tallyVoteCounter: function(event){
+    counter += 1;
+    console.log('counter', counter);
+    for (var i = 0; i < productsArray.length; i++) {
+      if (productsArray[i].name === event.target.id) {
+        productsArray[i].votes++;
+
+        var images = document.getElementsByTagName('img');
+        while(images.length > 0) {
+          images[0].parentNode.removeChild(images[0]);
+        }
 
 
+        tracker.renderImgsToDom();
+        console.log('votes', productsArray[i].votes);
+      }
+    }
+    console.log('event: ', event.target.id);
+  },
 }
 
-//   do {
-//
-//     var images = document.getElementsByTagName('img');
-//     while(images.length > 0) {
-//       images[0].parentNode.removeChild(images[0]);
-//     }
-//
-//
-//     var num0 = Math.round(Math.random() * (productsArray.length - 1));
-//     console.log(num0);
-
-//
-//
-//     document.getElementsByTagName('img')[0].setAttribute('id', 'IMGR0');
-//     document.getElementsByTagName('img')[1].setAttribute('id', 'IMGR1');
-//     document.getElementsByTagName('img')[2].setAttribute('id', 'productsArray[i].name');
-//
-//   } while (num0 === num1 || num0 === num2 || num1 === num2)
-// }
 
 
 
 
 
 
-// document.getElementById('zero').addEventListener('click', myFunction);
-//
-// function myFunction(){
-//   counter++;
-//   Product.votes++;
-//   console.log(counter);
-//
-// }
+
+
+
+
+
+
+
+
+
+document.getElementById('pictureHolder').addEventListener('click', tracker.tallyVoteCounter);
+tracker.renderImgsToDom();
