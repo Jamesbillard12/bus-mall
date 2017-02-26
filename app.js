@@ -1,14 +1,9 @@
 'use strict';
-// 1. Generate three random, non-dupe images (part of the controller)
-// 2. Object constructor for Products:
-// a. Include name, path, votes
-// 3. A tracker object that will controll functionality of app
-// 4. Event listener(s) for image clicks
 
 var productImageNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'tauntaun', 'unicorn', 'water-can', 'wine-glass'];
 var productsArray = [];
 var counter = 0;
-
+//constructor to create products and push them into the productsArray array
 function Product(name, path) {
   this.name = name;
   this.path = path;
@@ -23,13 +18,13 @@ function Product(name, path) {
   console.log(productsArray);
 })()
 
-
+//where all the functionality is controlled from
 var tracker = {
-
+// this generates a random number between 0-18
   randNumberGenerator: function(){
     return Math.round(Math.random() * (productsArray.length - 1));
   },
-
+// this function pushes 3 randomly generated numbers into an array called randomNums
   chooseThreeRandomPics: function(){
     var randomNums = [];
 
@@ -41,7 +36,7 @@ var tracker = {
     }
     return randomNums;
   },
-
+// this is where the the images are rendered into img selection area of the page
   renderImgsToDom: function(){
     console.log('tracker.renderImgsToDom');
     var threeRandomIndices = tracker.chooseThreeRandomPics();
@@ -54,7 +49,7 @@ var tracker = {
       pictureHolder.appendChild(img);
     }
   },
-
+// this is where the vote and counter are added on click event
   tallyVoteCounter: function(event){
 
 
@@ -63,13 +58,13 @@ var tracker = {
     for (var i = 0; i < productsArray.length; i++) {
       if (productsArray[i].name === event.target.id) {
         productsArray[i].votes++;
-
+// this deletes the pictures once one is clicked on
         var images = document.getElementsByTagName('img');
         while(images.length > 0) {
           images[0].parentNode.removeChild(images[0]);
         }
 
-
+// this gets a new set of pictures until 15 votes have been made. At this point, the eventlistener is shut off.
         tracker.renderImgsToDom();
         console.log('votes', productsArray[i].votes);
         if (counter === 15) {
@@ -80,7 +75,7 @@ var tracker = {
     console.log('event: ', event.target.id);
 
   },
-
+//this will render the results when the html button is clicked.
   renderResults: function() {
     var getUl = document.getElementById('rendered-results');
     for (var i = 0; i < productsArray.length; i++) {
