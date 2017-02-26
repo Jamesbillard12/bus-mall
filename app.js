@@ -56,6 +56,8 @@ var tracker = {
   },
 
   tallyVoteCounter: function(event){
+
+
     counter += 1;
     console.log('counter', counter);
     for (var i = 0; i < productsArray.length; i++) {
@@ -70,10 +72,26 @@ var tracker = {
 
         tracker.renderImgsToDom();
         console.log('votes', productsArray[i].votes);
+        if (counter === 15) {
+          document.getElementById("pictureHolder").removeEventListener("click",tracker.tallyVoteCounter);
+        }
       }
     }
     console.log('event: ', event.target.id);
+
   },
+
+  renderResults: function() {
+    var getUl = document.getElementById('rendered-results');
+    for (var i = 0; i < productsArray.length; i++) {
+      var li  = document.createElement('li');
+      li.textContent = 'There are ' + productsArray[i].votes + ' votes ' + productsArray[i].name;
+      getUl.appendChild(li);
+    }
+  }
+
+
+
 }
 
 
@@ -90,6 +108,6 @@ var tracker = {
 
 
 
-
+document.getElementById('results').addEventListener('click', tracker.renderResults);
 document.getElementById('pictureHolder').addEventListener('click', tracker.tallyVoteCounter);
 tracker.renderImgsToDom();
