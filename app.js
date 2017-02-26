@@ -85,13 +85,10 @@ var tracker = {
     var getUl = document.getElementById('rendered-results');
     for (var i = 0; i < productsArray.length; i++) {
       var li  = document.createElement('li');
-      li.textContent = 'There are ' + productsArray[i].votes + ' votes ' + productsArray[i].name;
+      li.textContent = 'The ' + productsArray[i].name + ': ' + productsArray[i].votes + ' votes.';
       getUl.appendChild(li);
     }
   }
-
-
-
 }
 
 
