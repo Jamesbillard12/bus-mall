@@ -1,15 +1,30 @@
 .header {
   border-style: solid;
-  align-items: center;
+align-items: center;
+border-radius: 5px;
+width: 1257px;
+}
+
+nav{
+  float: right;
+    display: inline-flex;
+    margin-top: -31px;
+    margin-right: -3px;
+}
+.nav{
+  border-style: solid;
+  padding: 5px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
 }
 
 .rendered-results {
   border-style: solid;
-float: left;
-width: 300px;
-height: 500px;
-margin-top: 10px;
-border-radius: 5px;
+  float: left;
+  width: 300px;
+  height: 500px;
+  margin-top: 10px;
+  border-radius: 5px;
 }
 
 .pictureHolder{
@@ -21,13 +36,13 @@ border-radius: 5px;
 
 img{
   padding-left: 40px;
-    margin-right: 12px;
+  margin-right: 12px;
 }
 h1 {
-    display: block;
-    font-size: 2em;
-    margin: 0px;
-    font-weight: bold;
+  display: block;
+  font-size: 2em;
+  margin: 0px;
+  font-weight: bold;
 }
 .bus{
   margin-top: 0px;
@@ -39,4 +54,16 @@ h1 {
   height: 50px;
   margin-left: 261px;
 
+}
+
+.content{
+  border-style: solid;
+  border-radius: 5px;
+  width: 906px;
+  height: 190px;
+  margin-left: 353px;
+}
+p{
+  margin: 0px;
+  padding-left: 10px;
 }
