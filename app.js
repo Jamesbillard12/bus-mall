@@ -70,6 +70,7 @@ var tracker = {
         console.log('votes', productsArray[i].votes);
         if (counter === 15) {
           document.getElementById("pictureHolder").removeEventListener("click",tracker.tallyVoteCounter);
+          document.getElementById('results').addEventListener('click', tracker.renderResults);
         }
       }
     }
@@ -79,7 +80,7 @@ var tracker = {
 //this will render the results when the html button is clicked.
   renderResults: function() {
     var getUl = document.getElementById('rendered-results');
-    for (var i = 0; i < productsArray.length; i++) {
+    for (var i in productsArray) {
       var li  = document.createElement('li');
       li.textContent = 'The ' + productsArray[i].name + ': ' + productsArray[i].votes + ' votes.';
       getUl.appendChild(li);
@@ -101,6 +102,6 @@ var tracker = {
 
 
 
-document.getElementById('results').addEventListener('click', tracker.renderResults);
+
 document.getElementById('pictureHolder').addEventListener('click', tracker.tallyVoteCounter);
 tracker.renderImgsToDom();
