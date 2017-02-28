@@ -12,7 +12,8 @@ function Product(name, path) {
 }
 // a simple IIFE to build all the product objects
 (function() {
-  for (var i = 0; i < productImageNames.length; i++) {
+  // for (var i = 0; i < productImageNames.length; i++)
+  for (var i in productImageNames){
     var newInstances = new Product(productImageNames[i], 'img/' + productImageNames[i]+'.jpg')
   };
   console.log(productsArray);
