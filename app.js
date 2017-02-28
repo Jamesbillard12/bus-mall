@@ -55,7 +55,8 @@ var tracker = {
 
     counter += 1;
     console.log('counter', counter);
-    for (var i = 0; i < productsArray.length; i++) {
+    // for (var i = 0; i < productsArray.length; i++)
+    for (var i in productsArray) {
       if (productsArray[i].name === event.target.id) {
         productsArray[i].votes++;
 // this deletes the pictures once one is clicked on
