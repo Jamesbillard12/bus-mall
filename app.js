@@ -3,12 +3,52 @@
 var productImageNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'tauntaun', 'unicorn', 'water-can', 'wine-glass'];
 var productsArray = [];
 var counter = 0;
+
+var chartData = {
+  type: 'bar',
+  data: {
+    labels: productImageNames, //this will hold the name of each product
+    datasets: [{
+      label: '# of Votes',
+      data: [],  //this will hold the votes for each product image
+      //myChart.update (built in method) myChart.data.datasets[0].data[0] = 8;
+      //data arrat should match the productImages array index
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',  //create a color property in constructor for each object? or... assign at render
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+        'rgba(255,99,132,1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)'
+      ],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero:true
+        }
+      }]
+    }
+  }
+}
 //constructor to create products and push them into the productsArray array
 function Product(name, path) {
   this.name = name;
   this.path = path;
   this.votes = 0;
   productsArray.push(this);
+  chartData.data.datasets[0].data.push(this.votes);
 }
 // a simple IIFE to build all the product objects
 (function() {
@@ -60,6 +100,9 @@ var tracker = {
     for (var i in productsArray) {
       if (productsArray[i].name === event.target.id) {
         productsArray[i].votes++;
+        myChart.data.datasets[0].data[i]++;
+        myChart.update();
+
 // this deletes the pictures once one is clicked on
         var images = document.getElementsByTagName('img');
         while(images.length > 0) {
@@ -69,6 +112,7 @@ var tracker = {
 // this gets a new set of pictures until 15 votes have been made. At this point, the eventlistener is shut off.
         tracker.renderImgsToDom();
         console.log('votes', productsArray[i].votes);
+        console.log('chart', myChart.data.datasets[0].data[i]++);
         if (counter === 15) {
           document.getElementById("pictureHolder").removeEventListener("click",tracker.tallyVoteCounter);
           document.getElementById('results').addEventListener('click', tracker.renderResults);
@@ -88,6 +132,11 @@ var tracker = {
     }
   }
 }
+
+var ctx = document.getElementById("myChart").getContext("2d");
+
+var myChart = new Chart(ctx, chartData);
+
 
 
 
