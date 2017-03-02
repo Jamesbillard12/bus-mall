@@ -3,6 +3,12 @@
 var productImageNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'tauntaun', 'unicorn', 'water-can', 'wine-glass'];
 var productsArray = [];
 var counter = 0;
+var dynamicColors = function() {
+  var r = Math.floor(Math.random() * 255);
+  var g = Math.floor(Math.random() * 255);
+  var b = Math.floor(Math.random() * 255);
+  return'rgb(' + r +',' + g +',' + b +')';
+};
 
 var chartData = {
   type: 'bar',
@@ -13,22 +19,8 @@ var chartData = {
       data: [],  //this will hold the votes for each product image
       //myChart.update (built in method) myChart.data.datasets[0].data[0] = 8;
       //data arrat should match the productImages array index
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',  //create a color property in constructor for each object? or... assign at render
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
+      backgroundColor: [],
+      borderColor: 'black',
       borderWidth: 1
     }]
   },
@@ -41,20 +33,24 @@ var chartData = {
       }]
     }
   }
-}
+};
+
 //constructor to create products and push them into the productsArray array
-function Product(name, path) {
+function Product(name, path, color) {
   this.name = name;
   this.path = path;
   this.votes = 0;
+  this.colors = color;
+  console.log(this.colors);
   productsArray.push(this);
   chartData.data.datasets[0].data.push(this.votes);
+  chartData.data.datasets[0].backgroundColor.push(this.colors)
 }
 // a simple IIFE to build all the product objects
 (function() {
   // for (var i = 0; i < productImageNames.length; i++)
   for (var i in productImageNames){
-    var newInstances = new Product(productImageNames[i], 'img/' + productImageNames[i]+'.jpg')
+    var newInstances = new Product(productImageNames[i], 'img/' + productImageNames[i]+'.jpg', dynamicColors())
   };
   console.log(productsArray);
 })()
