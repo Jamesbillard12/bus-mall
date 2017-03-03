@@ -32,7 +32,7 @@ nav{
   border-style: solid;
   float: left;
   width: 290px;
-  height: 501px;
+  height: 908px;
   margin-top: 10px;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.5);
@@ -55,12 +55,12 @@ img{
 }
 h1 {
   font-size: 2em;
-    margin: 0px;
-    margin-top: -77px;
-    margin-left: 265px;
-    font-weight: bold;
-    font-family: 'Supermercado One', cursive;
-    font-size: 64px;
+  margin: 0px;
+  margin-top: -77px;
+  margin-left: 265px;
+  font-weight: bold;
+  font-family: 'Supermercado One', cursive;
+  font-size: 64px;
 }
 .bus{
   margin-top: 0px;
@@ -97,4 +97,12 @@ p{
   width: 1257px;
   height: 100px;
   background-color: rgba(255, 255, 255, 0.5);
+}
+
+.chart {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-style: solid;
+  width: 400px;
+  margin-right: 250px;
+  float: right;
 }
