@@ -91,7 +91,7 @@ var tracker = {
     for (var i in productsArray) {
       if (productsArray[i].name === event.target.id) {
         productsArray[i].votes++;
-        // myChart.data.datasets[0].data[i]++;
+        console.log(productsArray[i].name, productsArray[i].votes);
         myChart.update();
       }
     }
@@ -109,7 +109,7 @@ var tracker = {
     tracker.deletePics();
     tracker.renderImgsToDom();
     if (counter === 15) {
-      console.log('counter', counter);
+      console.log('counter in setPics', counter);
       document.getElementById("pictureHolder").removeEventListener("click",tracker.tallyVoteCounter);
       document.getElementById('results').addEventListener('click', tracker.renderResults);
     }
