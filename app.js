@@ -42,6 +42,7 @@ function Product(name, path, color) {
   this.votes = 0;
   this.colors = color;
   productsArray.push(this);
+  chartData.data.datasets[0].data.push(this.votes);
   chartData.data.datasets[0].backgroundColor.push(this.colors);
 }
 // a simple IIFE to build all the product objects
@@ -90,9 +91,9 @@ var tracker = {
     for (var i in productsArray) {
       if (productsArray[i].name === event.target.id) {
         productsArray[i].votes++;
-        chartData.data.datasets[0].data.push(productsArray[i].votes);
-        console.log(productsArray[i].name, productsArray[i].votes);
+        myChart.data.datasets[0].data[i]++;
         myChart.update();
+        console.log(productsArray[i].name, productsArray[i].votes);
       }
     }
   },
