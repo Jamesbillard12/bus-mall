@@ -3,6 +3,8 @@
 var productImageNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'tauntaun', 'unicorn', 'water-can', 'wine-glass'];
 var productsArray = [];
 var counter = 0;
+var ctx = document.getElementById("myChart").getContext("2d");
+
 var dynamicColors = function() {
   var r = Math.floor(Math.random() * 255);
   var g = Math.floor(Math.random() * 255);
@@ -10,30 +12,6 @@ var dynamicColors = function() {
   return'rgb(' + r +',' + g +',' + b +')';
 };
 
-var chartData = {
-  type: 'bar',
-  data: {
-    labels: productImageNames, //this will hold the name of each product
-    datasets: [{
-      label: '# of Votes',
-      data: [],  //this will hold the votes for each product image
-      //myChart.update (built in method) myChart.data.datasets[0].data[0] = 8;
-      //data arrat should match the productImages array index
-      backgroundColor: [],
-      borderColor: 'black',
-      borderWidth: 1
-    }]
-  },
-  options: {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero:true
-        }
-      }]
-    }
-  }
-};
 
 //constructor to create products and push them into the productsArray array
 function Product(name, path, color) {
@@ -42,20 +20,16 @@ function Product(name, path, color) {
   this.votes = 0;
   this.colors = color;
   productsArray.push(this);
-  chartData.data.datasets[0].data.push(this.votes);
-  chartData.data.datasets[0].backgroundColor.push(this.colors);
+  //chartData and myChart are independent of one another so I had to restructure my dot notation here
+  tracker.chartData.data.datasets[0].data.push(this.votes);
+  tracker.chartData.data.datasets[0].backgroundColor.push(this.colors);
 }
-// a simple IIFE to build all the product objects
-(function() {
-  // for (var i = 0; i < productImageNames.length; i++)
-  for (var i in productImageNames){
-    var newInstances = new Product(productImageNames[i], 'img/' + productImageNames[i]+'.jpg', dynamicColors())
-  };
-  console.log(productsArray);
-})()
+
 
 //where all the functionality is controlled from
 var tracker = {
+
+
   // this generates a random number between 0-18
   randNumberGenerator: function(){
     return Math.round(Math.random() * (productsArray.length - 1));
@@ -91,8 +65,8 @@ var tracker = {
     for (var i in productsArray) {
       if (productsArray[i].name === event.target.id) {
         productsArray[i].votes++;
-        myChart.data.datasets[0].data[i]++;
-        myChart.update();
+        tracker.chartData.data.datasets[0].data[i]++;
+        tracker.chartOne.update();
         console.log(productsArray[i].name, productsArray[i].votes);
       }
     }
@@ -123,16 +97,54 @@ var tracker = {
       getUl.appendChild(li);
     }
   },
+
+// added chartData to my tracker object on a global scale nothing changed here other than removing a var
+  chartData: {
+    type: 'bar',
+    data: {
+      labels: productImageNames, //this will hold the name of each product
+      datasets: [{
+        label: '# of Votes',
+        data: [],  //this will hold the votes for each product image
+        //myChart.update (built in method) myChart.data.datasets[0].data[0] = 8;
+        //data arrat should match the productImages array index
+        backgroundColor: [],
+        borderColor: 'black',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+          }
+        }]
+      }
+    }
+  },
+  // this is where my chart is being generated
+  generateChart: function(){
+    // chartData and ctx are being assigned to the var myChart
+    var myChart = new Chart(ctx, tracker.chartData);
+    // myChart is being assigned to chartOne so that new votes can be updated on each click
+    tracker.chartOne = myChart;
+  },
+  chartOne: null,
+
 };
 
 
 
-//this will render the results when the html button is clicked.
-
-
-var ctx = document.getElementById("myChart").getContext("2d");
-
-var myChart = new Chart(ctx, chartData);
+// a simple IIFE to build all the product objects
+(function() {
+  // for (var i = 0; i < productImageNames.length; i++)
+  for (var i in productImageNames){
+    var newInstances = new Product(productImageNames[i], 'img/' + productImageNames[i]+'.jpg', dynamicColors())
+  };
+  console.log(productsArray);
+})()
+tracker.generateChart();
 
 document.getElementById('pictureHolder').addEventListener('click', tracker.tallyVoteCounter);
 tracker.renderImgsToDom();
