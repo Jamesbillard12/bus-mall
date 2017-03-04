@@ -5,14 +5,6 @@ var productsArray = [];
 var counter = 0;
 var ctx = document.getElementById("myChart").getContext("2d");
 
-var dynamicColors = function() {
-  var r = Math.floor(Math.random() * 255);
-  var g = Math.floor(Math.random() * 255);
-  var b = Math.floor(Math.random() * 255);
-  return'rgb(' + r +',' + g +',' + b +')';
-};
-
-
 //constructor to create products and push them into the productsArray array
 function Product(name, path, color) {
   this.name = name;
@@ -98,6 +90,13 @@ var tracker = {
     }
   },
 
+  dynamicColors: function() {
+    var r = Math.floor(Math.random() * 255);
+    var g = Math.floor(Math.random() * 255);
+    var b = Math.floor(Math.random() * 255);
+    return'rgb(' + r +',' + g +',' + b +')';
+  },
+
 // added chartData to my tracker object on a global scale nothing changed here other than removing a var
   chartData: {
     type: 'bar',
@@ -140,7 +139,7 @@ var tracker = {
 (function() {
   // for (var i = 0; i < productImageNames.length; i++)
   for (var i in productImageNames){
-    var newInstances = new Product(productImageNames[i], 'img/' + productImageNames[i]+'.jpg', dynamicColors())
+    var newInstances = new Product(productImageNames[i], 'img/' + productImageNames[i]+'.jpg', tracker.dynamicColors())
   };
   console.log(productsArray);
 })()
