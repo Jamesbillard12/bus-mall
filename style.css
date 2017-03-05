@@ -31,8 +31,8 @@ nav{
 .rendered-results {
   border-style: solid;
   float: left;
-  width: 290px;
-  height: 908px;
+  width: 331px;
+  height: 503px;
   margin-top: 10px;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.5);
@@ -61,6 +61,11 @@ h1 {
   font-weight: bold;
   font-family: 'Supermercado One', cursive;
   font-size: 64px;
+}
+h2 {
+  margin-left: 125px;
+  font-weight: bold;
+  font-family: 'Supermercado One', cursive;
 }
 .bus{
   margin-top: 0px;
