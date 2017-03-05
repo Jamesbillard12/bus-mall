@@ -1,5 +1,5 @@
 'use strict';
-setItem
+
 var productImageNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'tauntaun', 'unicorn', 'water-can', 'wine-glass'];
 var productsArray = [];
 var counter = 0;
@@ -146,12 +146,15 @@ var tracker = {
 
   chartOne: null,
 
-  getOldProductArrayVotesAndViews : function(){
-    var stringProducts = localStorage.getItem('finishedProductArray');
-    var loadedProducts = JSON.parse(stringProducts);
-    for (var i in loadedProducts){
-      productsArray[i].votes = loadedProducts[i].votes;
-      productsArray[i].views = loadedProducts[i].views;
+  getOldProductArrayVotesViewsChartData : function(){
+    var stringProductsViewVotes = localStorage.getItem('finishedProductArray');
+    var loadedProductsViewsVotes = JSON.parse(stringProductsViewVotes);
+    var stringProductsChartData = localStorage.getItem('chartDataArray');
+    var loadedProductsChartData = JSON.parse(stringProductsChartData);
+    for (var i in loadedProductsViewsVotes){
+      productsArray[i].votes = loadedProductsViewsVotes[i].votes;
+      productsArray[i].views = loadedProductsViewsVotes[i].views;
+      tracker.chartData.data.datasets[0].data[i] = loadedProductsChartData[i];
     }
   },
 
@@ -165,7 +168,7 @@ var tracker = {
   for (var i in productImageNames){
     var newInstances = new Product(productImageNames[i], 'img/' + productImageNames[i]+'.jpg', tracker.dynamicColors())
   };
-  tracker.getOldProductArrayVotesAndViews();
+  tracker.getOldProductArrayVotesViewsChartData();
   console.log(productsArray);
 })()
 tracker.generateChart();
