@@ -11,6 +11,7 @@ function Product(name, path, color) {
   this.path = path;
   this.votes = 0;
   this.colors = color;
+  this.views = 0;
   productsArray.push(this);
   //chartData and myChart are independent of one another so I had to restructure my dot notation here
   tracker.chartData.data.datasets[0].data.push(this.votes);
@@ -20,26 +21,33 @@ function Product(name, path, color) {
 
 //where all the functionality is controlled from
 var tracker = {
-
+  randomNums: [],
 
   // this generates a random number between 0-18
   randNumberGenerator: function(){
     return Math.round(Math.random() * (productsArray.length - 1));
   },
+
   // this function pushes 3 randomly generated numbers into an array called randomNums
   chooseThreeRandomPics: function(){
-    var randomNums = [];
-    while (randomNums.length < 3) {
+    this.randomNums = [];
+    while (this.randomNums.length < 3) {
       var possible = tracker.randNumberGenerator();
-      if (randomNums.indexOf(possible) === -1) {
-        randomNums.push(possible);
+      if (this.randomNums.indexOf(possible) === -1) {
+        this.randomNums.push(possible);
       }
     }
-    return randomNums;
+    return this.randomNums;
+  },
+  incViewsTotal: function(){
+    for (var i in tracker.chooseThreeRandomPics()) {
+      productsArray[tracker.randomNums[i]].views++;
+    }
   },
   // this is where the the images are rendered into img selection area of the page
   renderImgsToDom: function(){
     var threeRandomIndices = tracker.chooseThreeRandomPics();
+    tracker.incViewsTotal();
     var pictureHolder = document.getElementById('pictureHolder');
     for (var i = 0; i < threeRandomIndices.length; i++) {
 
@@ -49,6 +57,7 @@ var tracker = {
       pictureHolder.appendChild(img);
     }
   },
+
   // this is where the vote and counter are added on click event
   tallyVoteCounter: function(event){
     counter += 1;
@@ -63,6 +72,7 @@ var tracker = {
       }
     }
   },
+
   deletePics: function(){
     // this deletes the pictures once one is clicked on
     var images = document.getElementsByTagName('img');
@@ -77,10 +87,13 @@ var tracker = {
     tracker.renderImgsToDom();
     if (counter === 15) {
       console.log('counter in setPics', counter);
+      localStorage.setItem('finishedProductArray', JSON.stringify(productsArray));
+      localStorage.setItem('chartDataArray', JSON.stringify(tracker.chartData.data.datasets[0].data));
       document.getElementById("pictureHolder").removeEventListener("click",tracker.tallyVoteCounter);
       document.getElementById('results').addEventListener('click', tracker.renderResults);
     }
   },
+
   renderResults: function() {
     var getUl = document.getElementById('rendered-results');
     for (var i in productsArray) {
@@ -122,6 +135,7 @@ var tracker = {
       }
     }
   },
+
   // this is where my chart is being generated
   generateChart: function(){
     // chartData and ctx are being assigned to the var myChart
@@ -129,7 +143,20 @@ var tracker = {
     // myChart is being assigned to chartOne so that new votes can be updated on each click
     tracker.chartOne = myChart;
   },
+
   chartOne: null,
+
+  getOldProductArrayVotesViewsChartData : function(){
+    var stringProductsViewVotes = localStorage.getItem('finishedProductArray');
+    var loadedProductsViewsVotes = JSON.parse(stringProductsViewVotes);
+    var stringProductsChartData = localStorage.getItem('chartDataArray');
+    var loadedProductsChartData = JSON.parse(stringProductsChartData);
+    for (var i in loadedProductsViewsVotes){
+      productsArray[i].votes = loadedProductsViewsVotes[i].votes;
+      productsArray[i].views = loadedProductsViewsVotes[i].views;
+      tracker.chartData.data.datasets[0].data[i] = loadedProductsChartData[i];
+    }
+  },
 
 };
 
@@ -141,6 +168,7 @@ var tracker = {
   for (var i in productImageNames){
     var newInstances = new Product(productImageNames[i], 'img/' + productImageNames[i]+'.jpg', tracker.dynamicColors())
   };
+  tracker.getOldProductArrayVotesViewsChartData();
   console.log(productsArray);
 })()
 tracker.generateChart();
