@@ -1,5 +1,5 @@
 'use strict';
-
+setItem
 var productImageNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'tauntaun', 'unicorn', 'water-can', 'wine-glass'];
 var productsArray = [];
 var counter = 0;
@@ -87,6 +87,8 @@ var tracker = {
     tracker.renderImgsToDom();
     if (counter === 15) {
       console.log('counter in setPics', counter);
+      localStorage.setItem('finishedProductArray', JSON.stringify(productsArray));
+      localStorage.setItem('chartDataArray', JSON.stringify(tracker.chartData.data.datasets[0].data));
       document.getElementById("pictureHolder").removeEventListener("click",tracker.tallyVoteCounter);
       document.getElementById('results').addEventListener('click', tracker.renderResults);
     }
@@ -144,7 +146,18 @@ var tracker = {
 
   chartOne: null,
 
+  getOldProductArrayVotesAndViews : function(){
+    var stringProducts = localStorage.getItem('finishedProductArray');
+    var loadedProducts = JSON.parse(stringProducts);
+    for (var i in loadedProducts){
+      productsArray[i].votes = loadedProducts[i].votes;
+      productsArray[i].views = loadedProducts[i].views;
+    }
+  },
+
 };
+
+
 
 // a simple IIFE to build all the product objects
 (function() {
@@ -152,6 +165,7 @@ var tracker = {
   for (var i in productImageNames){
     var newInstances = new Product(productImageNames[i], 'img/' + productImageNames[i]+'.jpg', tracker.dynamicColors())
   };
+  tracker.getOldProductArrayVotesAndViews();
   console.log(productsArray);
 })()
 tracker.generateChart();
