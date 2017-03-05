@@ -67,7 +67,6 @@ var tracker = {
       if (productsArray[i].name === event.target.id) {
         productsArray[i].votes++;
         tracker.chartData.data.datasets[0].data[i]++;
-        tracker.chartOne.update();
         console.log(productsArray[i].name, productsArray[i].votes);
       }
     }
@@ -87,20 +86,15 @@ var tracker = {
     tracker.renderImgsToDom();
     if (counter === 15) {
       console.log('counter in setPics', counter);
-      localStorage.setItem('finishedProductArray', JSON.stringify(productsArray));
-      localStorage.setItem('chartDataArray', JSON.stringify(tracker.chartData.data.datasets[0].data));
       document.getElementById("pictureHolder").removeEventListener("click",tracker.tallyVoteCounter);
       document.getElementById('results').addEventListener('click', tracker.renderResults);
     }
   },
 
   renderResults: function() {
-    var getUl = document.getElementById('rendered-results');
-    for (var i in productsArray) {
-      var li  = document.createElement('li');
-      li.textContent = 'The ' + productsArray[i].name + ': ' + productsArray[i].votes + ' votes.';
-      getUl.appendChild(li);
-    }
+    localStorage.setItem('finishedProductArray', JSON.stringify(productsArray));
+    localStorage.setItem('chartDataArray', JSON.stringify(tracker.chartData.data.datasets[0].data));
+    tracker.chartOne.update();
   },
 
   dynamicColors: function() {
@@ -112,7 +106,7 @@ var tracker = {
 
 // added chartData to my tracker object on a global scale nothing changed here other than removing a var
   chartData: {
-    type: 'bar',
+    type: 'horizontalBar',
     data: {
       labels: productImageNames, //this will hold the name of each product
       datasets: [{
