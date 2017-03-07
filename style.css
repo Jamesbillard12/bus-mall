@@ -41,16 +41,18 @@ nav{
 }
 
 .pictureHolder{
-  float: right;
-  margin-top: 10px;
+  margin-top: 13px;
+  margin-left: 343px;
   padding: 5px;
   border-style: solid;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.5);
+  width: 904px;
+  height: 253px;
 }
 
 img{
-  padding-left: 40px;
+  padding-left: 32px;
   margin-right: 12px;
 }
 h1 {
@@ -74,6 +76,7 @@ h2 {
 
 /*button*/
 .results{
+  position: absolute;
   width: 380px;
   height: 50px;
   margin-left: 286px;
@@ -86,6 +89,7 @@ h2 {
   width: 915px;
   height: 181px;
   margin-left: 342px;
+  margin-top: 50px;
   font-size: 14.5px;
   font-family: 'Raleway', sans-serif;
   background-color: rgba(255, 255, 255, 0.5);
